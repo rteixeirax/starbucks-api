@@ -1,10 +1,10 @@
 import { IFactory } from '../../../../contracts/IFactory';
 import { GetCategoryService } from '../services/GetCategoryService';
-import { CategoryRepository } from '../repositories/CategoryRepository';
+import { CategoriesRepository } from '../repositories/CategoriesRepository';
 
 export class GetCategoryServiceFactory implements IFactory<GetCategoryService> {
   make(): GetCategoryService {
-    const categoryRepository = new CategoryRepository();
+    const categoryRepository = new CategoriesRepository();
     return new GetCategoryService(categoryRepository);
   }
 }

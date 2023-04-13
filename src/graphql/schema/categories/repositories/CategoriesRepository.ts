@@ -4,7 +4,7 @@ import { CategoryDto } from '../dtos/CategoryDto';
 import { CreateCategoryDataDto } from '../dtos/CreateCategoryDataDto';
 import { prismaClient } from '../../../../data/prismaClient';
 
-export class CategoryRepository implements ICategoriesRepository {
+export class CategoriesRepository implements ICategoriesRepository {
   mapDbModelToDto(model: Category) {
     return {
       categoryId: model.categoryId,
