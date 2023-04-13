@@ -2,7 +2,7 @@ import { Order } from '@prisma/client';
 import { IOrdersRepository } from './IOrdersRepository';
 import { OrderDto } from '../dtos/OrderDto';
 import { prismaClient } from '../../../../data/prismaClient';
-import { CreateOrderDataDto } from '../dtos/CreateOrderDto';
+import { CreateOrderDataDto } from '../dtos/CreateOrderDataDto';
 
 export class OrdersRepository implements IOrdersRepository {
   mapDbModelToDto(model: Order): OrderDto {
@@ -14,8 +14,10 @@ export class OrdersRepository implements IOrdersRepository {
     };
   }
 
-  async findAll(): Promise<OrderDto[]> {
-    const orders = await prismaClient.order.findMany();
+  async findAll(ids?: string[]): Promise<OrderDto[]> {
+    const orders = ids
+      ? await prismaClient.order.findMany({ where: { orderId: { in: ids } } })
+      : await prismaClient.order.findMany();
     return orders.map((order) => this.mapDbModelToDto(order));
   }
 

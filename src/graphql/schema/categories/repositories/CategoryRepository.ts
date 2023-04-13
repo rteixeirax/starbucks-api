@@ -12,8 +12,10 @@ export class CategoryRepository implements ICategoriesRepository {
     };
   }
 
-  async findAll(): Promise<CategoryDto[]> {
-    const categories = await prismaClient.category.findMany();
+  async findAll(ids?: string[]): Promise<CategoryDto[]> {
+    const categories = ids
+      ? await prismaClient.category.findMany({ where: { categoryId: { in: ids } } })
+      : await prismaClient.category.findMany();
     return categories.map((category) => this.mapDbModelToDto(category));
   }
 

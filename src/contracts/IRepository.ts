@@ -1,5 +1,5 @@
 export interface IRepository<TReturnValues, TData = undefined> {
-  findAll(): Promise<TReturnValues[]>;
+  findAll(ids?: string[]): Promise<TReturnValues[]>;
 
   findById(id: string): Promise<TReturnValues | null>;
 

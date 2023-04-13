@@ -15,8 +15,10 @@ export class ProductsRepository implements IProductsRepository {
     };
   }
 
-  async findAll(): Promise<ProductDto[]> {
-    const products = await prismaClient.product.findMany();
+  async findAll(ids?: string[]): Promise<ProductDto[]> {
+    const products = ids
+      ? await prismaClient.product.findMany({ where: { productId: { in: ids } } })
+      : await prismaClient.product.findMany();
     return products.map((product) => this.mapDbModelToDto(product));
   }
 
