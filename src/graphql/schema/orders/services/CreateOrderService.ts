@@ -36,15 +36,16 @@ export class CreateOrderService implements IService<CreateOrderDataDto, OrderDto
     }
 
     const extrasAmount = extras.reduce((acc, extra) => acc + extra.price, 0);
-    const totalBill = product.price + extrasAmount;
+    const total = product.price + extrasAmount;
 
-    if (data.receivedAmount < totalBill) {
+    if (data.receivedAmount < total) {
       throw new ValidationException('Insufficient funds');
     }
 
-    const exchange = totalBill - data.receivedAmount;
+    const exchange = data.receivedAmount - total;
+
     await this.productsRepository.update({ ...product, stock: product.stock - 1 });
 
-    return this.ordersRepository.save({ ...data, exchange });
+    return this.ordersRepository.save({ ...data, exchange, total });
   }
 }

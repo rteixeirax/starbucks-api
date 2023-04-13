@@ -9,6 +9,9 @@ export class OrderDto {
   @Field()
   receivedAmount: number;
 
+  @Field()
+  total: number;
+
   @Field({ nullable: true })
   exchange?: number;
 

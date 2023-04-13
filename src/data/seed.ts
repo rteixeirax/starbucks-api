@@ -2,7 +2,7 @@ import { prismaClient } from './prismaClient';
 
 function generateRandomPrice(min: number, max: number) {
   const random = Math.random() * (max - min) + min;
-  return random.toFixed(2);
+  return Math.round(random * 100) / 100;
 }
 
 async function seed() {

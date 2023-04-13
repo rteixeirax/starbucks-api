@@ -40,6 +40,7 @@ describe('Create order service', () => {
     expect(order.productId).toStrictEqual(mockProduct.productId);
     expect(order.receivedAmount).toStrictEqual(receivedAmount);
     expect(order.exchange).toStrictEqual(0);
+    expect(order.total).toStrictEqual(receivedAmount);
     expect(updatedProduct?.stock).toStrictEqual(mockProduct.stock - 1);
   });
 

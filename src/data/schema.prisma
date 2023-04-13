@@ -13,7 +13,7 @@ datasource db {
 model Extra {
   extraId   String       @id @default(uuid())
   name      String
-  price     Decimal
+  price     Float
   orders    OrderExtra[]
   createdAt DateTime     @default(now())
   updatedAt DateTime     @default(now()) @updatedAt
@@ -34,7 +34,7 @@ model Category {
 model Product {
   productId  String   @id @default(uuid())
   name       String
-  price      Decimal
+  price      Float
   stock      Int      @default(0)
   Orders     Order[]
   categoryId String
@@ -49,6 +49,7 @@ model Order {
   orderId        String       @id @default(uuid())
   receivedAmount Decimal
   exchange       Decimal
+  total          Decimal
   productId      String
   product        Product      @relation(fields: [productId], references: [productId])
   extras         OrderExtra[]

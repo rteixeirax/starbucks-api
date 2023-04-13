@@ -11,6 +11,7 @@ export class OrdersRepository implements IOrdersRepository {
       productId: model.productId,
       receivedAmount: model.receivedAmount as unknown as number,
       exchange: model.exchange as unknown as number,
+      total: model.total as unknown as number,
     };
   }
 
@@ -33,6 +34,7 @@ export class OrdersRepository implements IOrdersRepository {
       data: {
         receivedAmount: data.receivedAmount,
         exchange: data.exchange ?? 0,
+        total: data.total ?? 0,
         productId: data.productId,
       },
     });
@@ -56,6 +58,7 @@ export class OrdersRepository implements IOrdersRepository {
         receivedAmount: data.receivedAmount,
         exchange: data.exchange,
         productId: data.productId,
+        total: data.total,
       },
     });
     return this.mapDbModelToDto(product);

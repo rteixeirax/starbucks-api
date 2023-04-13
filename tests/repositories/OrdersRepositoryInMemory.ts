@@ -17,6 +17,7 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
   async save(data: CreateOrderDataDto): Promise<OrderDto> {
     const newOrder = {
       orderId: crypto.randomUUID(),
+      total: 0,
       ...data,
     };
 
@@ -40,6 +41,7 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
       orderId: data?.orderId || crypto.randomUUID(),
       receivedAmount: data?.receivedAmount ?? 0,
       exchange: data?.exchange ?? 0,
+      total: data?.total ?? 0,
       productId: data?.productId || crypto.randomUUID(),
     };
     this.orders.push(newData);
