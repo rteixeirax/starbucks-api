@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres:alpine
+    container_name: postgresql_dev
+    restart: always
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=dev123
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./dev/docker/postgres:/var/lib/postgresql/data
+volumes:
+  postgresql:
+    driver: starbucks_api_db
+

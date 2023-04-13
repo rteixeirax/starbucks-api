@@ -1,0 +1,51 @@
+{
+  "name": "starbucks-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "<rteixxeira86@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "rm -rf build && tsc --p tsconfig.release.json",
+    "dev": "env-cmd -f ./.env ts-node-dev src/main.ts",
+    "start": "node build/main.js",
+    "lint": "eslint --ext .ts,.tsx src tests --fix && tsc --noEmit",
+    "test": "vitest",
+    "docker-up": "docker-compose up -d",
+    "docker-down": "docker-compose down",
+    "db-migrate-create": "prisma migrate dev --create-only",
+    "db-migrate-dev": "prisma migrate dev",
+    "db-seed": "prisma db seed",
+    "db-migrate-deploy": "prisma migrate deploy",
+    "db-migrate-reset": "prisma migrate reset"
+  },
+  "prisma": {
+    "schema": "src/data/schema.prisma",
+    "seed": "ts-node-dev src/data/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.12.0",
+    "apollo-server": "^3.12.0",
+    "class-validator": "^0.14.0",
+    "graphql": "^15.8.0",
+    "prisma": "^4.12.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
+  }
+}
