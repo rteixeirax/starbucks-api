@@ -1,17 +1,17 @@
 import { Query, Resolver } from 'type-graphql';
-import { ProductDto } from '../dtos/Product.dto';
-import { prismaClient } from '../../../../data/prismaClient';
-import { ProductsPaginatedResponseDto } from '../dtos/ProductsPaginatedResponse.dto';
+import { ProductDto } from '../dtos/ProductDto';
+import { ProductsPaginatedResponseDto } from '../dtos/ProductsPaginatedResponseDto';
 import { BadRequest, OK } from '../../../../utils/buildApiResponse';
+import { GetProductsServiceFactory } from '../factories/GetProductsServiceFactory';
 
 @Resolver(ProductDto)
 export default class GetProductsResolver {
   @Query(() => ProductsPaginatedResponseDto)
   async getProducts() {
     try {
-      const response = await prismaClient.product.findMany();
+      const getProductsService = new GetProductsServiceFactory().make();
 
-      return OK(response);
+      return OK(await getProductsService.execute());
     } catch (error: any) {
       return BadRequest(error.message);
     }

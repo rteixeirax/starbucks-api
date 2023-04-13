@@ -1,5 +1,5 @@
 import { ObjectType } from 'type-graphql';
-import { ProductDto } from './Product.dto';
+import { ProductDto } from './ProductDto';
 import { ApiResponse } from '../../../shared/ApiResponse';
 
 @ObjectType('ProductResponse')

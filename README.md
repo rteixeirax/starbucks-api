@@ -31,7 +31,7 @@ npm run docker-up
 npm run docker-down
 
 // Create a migration without applying it
-npm run db-migrate-create
+npm run db-migrate-mockCreate
 
 // Generate and apply migrations
 npm run db-migrate-dev

@@ -1,24 +1,17 @@
 import { Arg, Query, Resolver } from 'type-graphql';
-import { ProductDto } from '../dtos/Product.dto';
-import { prismaClient } from '../../../../data/prismaClient';
-import { ProductResponseDto } from '../dtos/ProductResponse.dto';
+import { ProductDto } from '../dtos/ProductDto';
+import { ProductResponseDto } from '../dtos/ProductResponseDto';
 import { BadRequest, OK } from '../../../../utils/buildApiResponse';
-import { ValidationException } from '../../../../exceptions/ValidationException';
+import { GetProductServiceFactory } from '../factories/GetProductServiceFactory';
 
 @Resolver(ProductDto)
 export default class GetProductResolver {
   @Query(() => ProductResponseDto)
   async getProduct(@Arg('productId') productId: string) {
     try {
-      const response = await prismaClient.product.findFirst({
-        where: { productId },
-      });
+      const getProductService = new GetProductServiceFactory().make();
 
-      if (!response) {
-        throw new ValidationException('Invalid productId');
-      }
-
-      return OK(response);
+      return OK(await getProductService.execute({ productId }));
     } catch (error: any) {
       return BadRequest(error.message);
     }

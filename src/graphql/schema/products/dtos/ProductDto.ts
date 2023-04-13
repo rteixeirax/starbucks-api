@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql';
-import { CategoryDto } from '../../categories/dtos/Category.dto';
+import { CategoryDto } from '../../categories/dtos/CategoryDto';
 
 @ObjectType('Product')
 export class ProductDto {
@@ -19,5 +19,5 @@ export class ProductDto {
   categoryId: string;
 
   @Field()
-  category: CategoryDto;
+  category?: CategoryDto;
 }
