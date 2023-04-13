@@ -47,7 +47,7 @@ model Product {
 
 model Order {
   orderId        String       @id @default(uuid())
-  recievedAmount Decimal
+  receivedAmount Decimal
   exchange       Decimal
   productId      String
   product        Product      @relation(fields: [productId], references: [productId])
