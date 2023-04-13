@@ -6,11 +6,11 @@ export class CreateOrderDataDto {
   receivedAmount: number;
 
   @Field()
-  exchange: number;
+  exchange?: number;
 
   @Field()
   productId: string;
 
-  @Field()
-  extrasIds: string[];
+  @Field(() => [String], { nullable: true })
+  extrasIds?: string[];
 }

@@ -32,11 +32,32 @@ export class OrdersRepository implements IOrdersRepository {
     const order = await prismaClient.order.create({
       data: {
         receivedAmount: data.receivedAmount,
-        exchange: data.exchange,
+        exchange: data.exchange ?? 0,
         productId: data.productId,
       },
     });
 
+    if (data.extrasIds?.length) {
+      await prismaClient.orderExtra.createMany({
+        data: data.extrasIds.map((extraId) => ({
+          extraId,
+          orderId: order.orderId,
+        })),
+      });
+    }
+
     return this.mapDbModelToDto(order);
+  }
+
+  async update(data: OrderDto): Promise<OrderDto> {
+    const product = await prismaClient.order.update({
+      where: { orderId: data.orderId },
+      data: {
+        receivedAmount: data.receivedAmount,
+        exchange: data.exchange,
+        productId: data.productId,
+      },
+    });
+    return this.mapDbModelToDto(product);
   }
 }

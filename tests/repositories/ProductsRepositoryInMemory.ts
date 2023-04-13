@@ -24,6 +24,17 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
     return newProduct;
   }
 
+  async update(data: ProductDto): Promise<ProductDto> {
+    const idx = this.products.findIndex((product) => product.productId === data.productId);
+
+    this.products[idx] = {
+      ...this.products[idx],
+      ...data,
+    };
+
+    return this.products[idx];
+  }
+
   mockCreate(data?: Partial<ProductDto>) {
     const newData = {
       productId: data?.productId || crypto.randomUUID(),

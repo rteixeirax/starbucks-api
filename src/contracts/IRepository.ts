@@ -4,4 +4,6 @@ export interface IRepository<TReturnValues, TData = undefined> {
   findById(id: string): Promise<TReturnValues | null>;
 
   save(data: TData): Promise<TReturnValues>;
+
+  update(data: TReturnValues): Promise<TReturnValues>;
 }

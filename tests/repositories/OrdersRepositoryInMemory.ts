@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { IOrdersRepository } from '../../src/graphql/schema/orders/repositories/IOrdersRepository';
 import { OrderDto } from '../../src/graphql/schema/orders/dtos/OrderDto';
-import { CreateOrderDataDto } from '../../src/graphql/schema/orders/dtos/CreateOrderDto';
+import { CreateOrderDataDto } from '../../src/graphql/schema/orders/dtos/CreateOrderDataDto';
 
 export class OrdersRepositoryInMemory implements IOrdersRepository {
   orders: OrderDto[] = [];
@@ -22,6 +22,17 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
 
     this.orders.push(newOrder);
     return newOrder;
+  }
+
+  async update(data: OrderDto): Promise<OrderDto> {
+    const idx = this.orders.findIndex((order) => order.orderId === data.orderId);
+
+    this.orders[idx] = {
+      ...this.orders[idx],
+      ...data,
+    };
+
+    return this.orders[idx];
   }
 
   mockCreate(data?: Partial<OrderDto>) {

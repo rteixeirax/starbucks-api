@@ -15,6 +15,15 @@ export class ProductsRepository implements IProductsRepository {
     };
   }
 
+  mapDtoToDbMode(dto: ProductDto | CreateProductDataDto) {
+    return {
+      name: dto.name,
+      price: dto.price,
+      stock: dto.stock,
+      categoryId: dto.categoryId,
+    };
+  }
+
   async findAll(ids?: string[]): Promise<ProductDto[]> {
     const products = ids
       ? await prismaClient.product.findMany({ where: { productId: { in: ids } } })
@@ -31,12 +40,16 @@ export class ProductsRepository implements IProductsRepository {
 
   async save(data: CreateProductDataDto): Promise<ProductDto> {
     const product = await prismaClient.product.create({
-      data: {
-        name: data.name,
-        price: data.price,
-        stock: data.stock,
-        categoryId: data.categoryId,
-      },
+      data: this.mapDtoToDbMode(data),
+    });
+
+    return this.mapDbModelToDto(product);
+  }
+
+  async update(data: ProductDto): Promise<ProductDto> {
+    const product = await prismaClient.product.update({
+      where: { productId: data.productId },
+      data: this.mapDtoToDbMode(data),
     });
 
     return this.mapDbModelToDto(product);

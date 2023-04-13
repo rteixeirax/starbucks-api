@@ -24,6 +24,17 @@ export class CategoriesRepositoryInMemory implements ICategoriesRepository {
     return newCategory;
   }
 
+  async update(data: CategoryDto): Promise<CategoryDto> {
+    const idx = this.categories.findIndex((category) => category.categoryId === data.categoryId);
+
+    this.categories[idx] = {
+      ...this.categories[idx],
+      ...data,
+    };
+
+    return this.categories[idx];
+  }
+
   mockCreate(data?: Partial<CategoryDto>) {
     const newData = {
       categoryId: data?.categoryId || crypto.randomUUID(),

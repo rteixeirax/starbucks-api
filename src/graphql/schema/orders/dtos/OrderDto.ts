@@ -9,12 +9,12 @@ export class OrderDto {
   @Field()
   receivedAmount: number;
 
-  @Field()
-  exchange: number;
+  @Field({ nullable: true })
+  exchange?: number;
 
   @Field()
   productId: string;
 
-  @Field()
+  @Field(() => [ExtraDto], { nullable: true })
   extras?: ExtraDto[];
 }

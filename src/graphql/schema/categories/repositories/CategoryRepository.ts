@@ -32,7 +32,16 @@ export class CategoryRepository implements ICategoriesRepository {
         name: data.name,
       },
     });
-
     return this.mapDbModelToDto(category);
+  }
+
+  async update(data: CategoryDto): Promise<CategoryDto> {
+    const product = await prismaClient.category.update({
+      where: { categoryId: data.categoryId },
+      data: {
+        name: data.name,
+      },
+    });
+    return this.mapDbModelToDto(product);
   }
 }
