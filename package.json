@@ -10,7 +10,7 @@
     "build": "rm -rf build && tsc --p tsconfig.release.json",
     "dev": "env-cmd -f ./.env ts-node-dev src/main.ts",
     "start": "node build/main.js",
-    "lint": "eslint --ext .ts,.tsx src tests --fix && tsc --noEmit",
+    "lint": "eslint --ext .ts src tests --fix && tsc --noEmit",
     "test": "vitest",
     "docker-up": "docker-compose up -d",
     "docker-down": "docker-compose down",
