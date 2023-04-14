@@ -55,7 +55,7 @@ price).
 - The total price to charge the customer is the cost of the product plus any extras.
 - You can define the price values as you like.
 
-As an example, one possible configuration of this inventory would be (but you can choose your own):
+As an example, one possible configuration of this inventory would be:
 
 - Espresso Drinks (category)
   - Latte
